@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpStatus } from "@nestjs/common";
+import { Controller, Post, Body, HttpStatus, ForbiddenException } from "@nestjs/common";
 import { GhostService } from "./ghost.service";
 import { Auth } from "../auth/auth.decorator";
 import { CreateGhostDto, ExchangeGhostDto } from "./ghost.dto";
@@ -22,7 +22,7 @@ export class GhostController {
        if (token) {
         return token;
        }
-       throw new HttpException('token is not valid', HttpStatus.FORBIDDEN); 
+       throw new ForbiddenException(); 
     }
 
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, HttpException, HttpCode, HttpStatus, Put, ValidationPipe, Req } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, HttpException, HttpCode, HttpStatus, Put, ValidationPipe, Req, NotFoundException } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto, LoginUserDto } from "./user.dto";
 import { IRequest } from "../../common/interfaces";
@@ -8,9 +8,7 @@ import * as jwt from 'jsonwebtoken';
 export class UserController {
     constructor(
         private readonly userService: UserService
-    ) {
-
-    }
+    ) {}
     @Get()
     getAll() {
         return this.userService.findAll(); 
@@ -19,7 +17,7 @@ export class UserController {
     async getOne(@Param('id') id:string) {
         const user = await this.userService.findOne(id);
         if (!user) {
-            throw new HttpException('user was not found', HttpStatus.NOT_FOUND);
+            throw new NotFoundException();
         }
         return user;
     }

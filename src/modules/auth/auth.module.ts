@@ -4,6 +4,7 @@ import { AuthController } from "./auth.controller";
 import { userProviders } from "../user/user.provider";
 import { AuthService } from "./auth.service";
 import { AuthGuard } from "./auth.guard";
+import { UserService } from "../user/user.service";
 
 @Module({
     imports: [DatabaseModule],
@@ -11,6 +12,7 @@ import { AuthGuard } from "./auth.guard";
     components: [
         ...userProviders,
         AuthService,
+        UserService,
         AuthGuard
     ]
 })
