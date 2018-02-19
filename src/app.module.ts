@@ -2,7 +2,7 @@ import { Module, NestModule, MiddlewaresConsumer, RequestMethod } from '@nestjs/
 import { AppController } from './app.controller';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { AuthMiddleware } from './modules/auth/auth.middleware';
+import { AuthMiddleware } from './middleware/auth.middleware';
 
 @Module({
   imports: [UserModule, AuthModule],

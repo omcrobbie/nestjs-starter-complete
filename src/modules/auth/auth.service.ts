@@ -24,9 +24,6 @@ export class AuthService {
             return this.createToken({id:loginUser.id});
         }
     }
-    fetchUser(id) {
-        return this.user.findById(id);
-    }
     decodeUser(request) {
         const token = request.headers['authorization'];
         return jwt.decode(token);
