@@ -1,3 +1,3 @@
 import { ReflectMetadata } from "@nestjs/common";
 
-export const Auth = (require: boolean ) => ReflectMetadata('bypass', require);
+export const Auth = (bypass: boolean ) => ReflectMetadata('bypass', bypass);
