@@ -1,6 +1,8 @@
-import { Controller, Get, Post, Body, Param, HttpException, HttpCode, HttpStatus, Put, ValidationPipe } from "@nestjs/common";
+import { Controller, Get, Post, Body, Param, HttpException, HttpCode, HttpStatus, Put, ValidationPipe, Req } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto, LoginUserDto } from "./user.dto";
+import { IRequest } from "../../common/interfaces";
+import * as jwt from 'jsonwebtoken';
 
 @Controller('user')
 export class UserController {
@@ -22,8 +24,9 @@ export class UserController {
         return user;
     }
     @Post()
-    create(@Body() createUser: CreateUserDto) {
-        return this.userService.create(createUser);
+    async create(@Req() request:IRequest)  {
+        const user:any = jwt.decode(request.headers['authorization']);
+        return this.userService.create(user);
     }
     @Put(':id')
     update(

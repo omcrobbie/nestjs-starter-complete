@@ -1,24 +1,24 @@
 import { Component, Inject, HttpException, HttpStatus } from "@nestjs/common";
 import { userProviderToken } from "../../common/constants";
-import User from "./user.entity";
+import UserModel from "./user.entity";
 
 @Component()
 export class UserService {
     constructor(
         @Inject(userProviderToken) 
-        private readonly user: typeof User
+        private readonly User: typeof UserModel
     ){}
     findAll() {
-        return this.user.findAll();
+        return this.User.findAll();
     }
     findOne(id) {
-        return this.user.findById(id);
+        return this.User.findById(id);
     }
     async create(user:any) {
-        return this.user.create(user);
+        return this.User.create(user);
     }
     async update(id: string, user: any) {
-        const updateUser = await this.user.findById(id);
+        const updateUser = await this.User.findById(id);
         return updateUser.update(user);
     }
 }

@@ -1,7 +1,7 @@
 import { Request } from "@nestjs/common";
-import User from "../modules/user/user.entity";
+import UserModel from "../modules/user/user.entity";
 
 
 export interface IRequest extends Request {
-    user: User;
+    userId: number;
 }

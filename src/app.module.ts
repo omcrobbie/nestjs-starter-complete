@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { AuthMiddleware } from './middleware/auth.middleware';
+import { GhostModule } from './modules/ghost/ghost.module';
 
 @Module({
-  imports: [UserModule, AuthModule],
+  imports: [UserModule, AuthModule, GhostModule],
   controllers: [AppController],
   components: [],
 })

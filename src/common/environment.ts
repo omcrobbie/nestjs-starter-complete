@@ -3,6 +3,8 @@ export const {
     db_port,
     db_userName,
     db_password,
-    db_database
+    db_database,
+    secret_jwt,
+    secret_ghost
   } = process.env;
 

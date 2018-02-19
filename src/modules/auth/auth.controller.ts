@@ -12,7 +12,7 @@ export class AuthController {
     ) {}
     @Post('login')
     async login(@Body() loginDto: LoginDto ) {
-        const token = this.authService.validateUser(loginDto);
+        const token = await this.authService.validateUser(loginDto);
         if (!token) {
             throw new HttpException('bad token', HttpStatus.FORBIDDEN);
         }
@@ -20,8 +20,8 @@ export class AuthController {
     }
     @Get('user')
     getUser(@Req() request: IRequest) {
-        if (request.user) {
-            return request.user;
+        if (request.userId) {
+            return request.userId;
         }
         throw new HttpException('not found', HttpStatus.NOT_FOUND);
     }

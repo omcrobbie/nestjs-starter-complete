@@ -6,14 +6,13 @@ import { UserService } from "../modules/user/user.service";
 @Middleware()
 export class AuthMiddleware implements NestMiddleware {
     constructor(
-        private readonly userService: UserService,
         private readonly authService: AuthService
     ){}
     resolve(...args: any[]): ExpressMiddleware  {
-        return async (req: IRequest, res, next) => {
+        return (req: IRequest, res, next) => {
             if (this.authService.validateToken(req)) {
                 const user = this.authService.decodeUser(req);
-                req.user = await this.userService.findOne(user['id'])
+                req.userId = user['id'];
             }
             next();
         }

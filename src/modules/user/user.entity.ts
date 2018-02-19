@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { Model, Table, Column, BeforeCreate, BeforeUpdate } from "sequelize-typescript";
 @Table
-export default class User extends Model<User> {
+export default class UserModel extends Model<UserModel> {
 
     @Column
     name: string;
@@ -11,7 +11,7 @@ export default class User extends Model<User> {
 
     @BeforeUpdate
     @BeforeCreate
-    static hashPassword(instance: User) {
+    static hashPassword(instance: UserModel) {
         instance.password = bcrypt.hashSync(instance.password, bcrypt.genSaltSync(10));
         
     }
