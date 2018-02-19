@@ -1,7 +1,8 @@
-import { Controller, Post, Body, HttpCode, HttpException, HttpStatus } from "@nestjs/common";
+import { Controller, Post, Body, HttpCode, HttpException, HttpStatus, Get, Req } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { Auth } from "./auth.decorator";
 import { LoginDto } from "./auth.dto";
+import { IRequest } from "../../common/interfaces";
 
 @Auth(true)
 @Controller('auth')
@@ -16,5 +17,12 @@ export class AuthController {
             throw new HttpException('bad token', HttpStatus.FORBIDDEN);
         }
         return token;
+    }
+    @Get('user')
+    getUser(@Req() request: IRequest) {
+        if (request.user) {
+            return request.user;
+        }
+        throw new HttpException('not found', HttpStatus.NOT_FOUND);
     }
 }

@@ -19,6 +19,7 @@ export class UserController {
         if (!user) {
             throw new HttpException('user was not found', HttpStatus.NOT_FOUND);
         }
+        return user;
     }
     @Post()
     create(@Body() createUser: CreateUserDto) {
