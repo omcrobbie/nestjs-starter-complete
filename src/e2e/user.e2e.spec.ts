@@ -1,68 +1,28 @@
 import * as express from 'express';
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
-import { UserModule } from '../modules/user/user.module';
-import { AuthModule } from '../modules/auth/auth.module';
-import { GhostModule } from '../modules/ghost/ghost.module';
-import { dbConnectionToken, userProviderToken, ghostProviderToken, envProviderToken } from '../common/constants';
-import { Sequelize } from 'sequelize-typescript';
-import { DatabaseModule } from '../modules/database/database.module';
-import { databaseProviders } from '../modules/database/database.provider';
-import { Inject, INestApplication } from '@nestjs/common';
-import { UserService } from '../modules/user/user.service';
-import UserModel from '../modules/user/user.entity';
-import GhostModel from '../modules/ghost/ghost.entity';
 import { AuthService } from '../modules/auth/auth.service';
 import { GhostService } from '../modules/ghost/ghost.service';
 import { UserController } from '../modules/user/user.controller';
 import { AuthController } from '../modules/auth/auth.controller';
 import { GhostController } from '../modules/ghost/ghost.controller';
 import { AuthGuard } from '../modules/auth/auth.guard';
-import { envProviders } from '../common/env.provider';
-const testProviders = [
-    {
-        provide: dbConnectionToken,
-        useFactory: async () => {
-          const sequelize = new Sequelize({
-            dialect: 'postgres',
-            host: 'localhost',
-            port: 5432,
-            username: 'macbookair',
-            password: '',
-            database: 'testdb',
-            logging: false
-          });
-          sequelize.addModels([
-                UserModel,
-                GhostModel
-          ]);
-          await sequelize.sync({force: true});
-          return sequelize;
-        }
-      },
-      {
-        provide: envProviderToken,
-        useValue: {
-            secret_jwt: 'secret',
-            secret_ghost: 'ghost'
-        }
-      },
-      {
-          provide: ghostProviderToken,
-          useValue: GhostModel
-      },
-      {
-          provide: userProviderToken,
-          useValue: UserModel
-      }
-];
+import { testProviders, authMiddleware } from './e2e.util';
+import { UserService } from '../modules/user/user.service';
+import { INestApplication } from '@nestjs/common';
+
 let userService: UserService;
 let ghostService: GhostService;
-let app: INestApplication;
+let app: INestApplication
+let ghostToken;
+let loginToken;
+const user = {
+    name: 'testy',
+    password: '123password'
+};
 describe('user account creation', () => {
     const server = express();
-    let ghostToken;
-    let loginToken;
+    server.use(authMiddleware(1));
     beforeAll(async () => {
         const appModule = await Test.createTestingModule({
             components: [
@@ -80,21 +40,19 @@ describe('user account creation', () => {
         })
         .compile();
         const app = appModule.createNestApplication(server);
+        const authGuard = app.get<AuthGuard>(AuthGuard);
+        app.useGlobalGuards(authGuard);
         await app.init();
         userService = app.get<UserService>(UserService);
         ghostService = app.get<GhostService>(GhostService);
     });
-    afterAll(() => {
-        app.close();
+    afterAll(async () => {
+        await app.close();
     });
     it('create ghost user', async () => {
-        const payload = {
-            name: 'testy',
-            password: '123password'
-        };
         const res = await request(server)
             .post('/ghost')
-            .send(payload)
+            .send(user)
             .expect(201)
         expect(res.body.token).toBeDefined;
         ghostToken = res.body.token;
@@ -107,5 +65,26 @@ describe('user account creation', () => {
             .post('/ghost/exchange')
             .send(payload);
         expect(res.body.token).toBeDefined;
+        loginToken = res.body.token;
+    });
+    it('should get the user', async () => {
+        const res = await request(server)
+            .get('/auth/user')
+            .set('Authorization', loginToken)
+            .expect(200);
+        const {name, password } = res.body;
+        expect(name).toEqual(user.name);
+    });
+    it('should not get the data', () => {
+        return request(server)
+            .get('/user')
+            .expect(403);
+    });
+    it('should get the data using token', async () => {
+        const res = await request(server)
+            .get('/user')
+            .set('Authorization', loginToken)
+            .expect(200);
+        expect(res.body).toHaveLength(1);
     });
 });

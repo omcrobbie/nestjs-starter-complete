@@ -4,6 +4,7 @@ import { ghostProviders } from "./ghost.provider";
 import { GhostController } from "./ghost.controller";
 import { GhostService } from "./ghost.service";
 import { userProviders } from "../user/user.provider";
+import { envProviders } from "../../common/env.provider";
 
 @Module({
     imports: [DatabaseModule],
@@ -11,6 +12,7 @@ import { userProviders } from "../user/user.provider";
     components: [
         ...ghostProviders,
         ...userProviders,
+        ...envProviders,
         GhostService
     ]
 })
