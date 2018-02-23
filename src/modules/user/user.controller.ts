@@ -3,6 +3,7 @@ import { UserService } from "./user.service";
 import { CreateUserDto, LoginUserDto } from "./user.dto";
 import { IRequest } from "../../common/interfaces";
 import * as jwt from 'jsonwebtoken';
+import { ApiImplicitBody } from "@nestjs/swagger";
 
 @Controller('user')
 export class UserController {
