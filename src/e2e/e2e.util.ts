@@ -1,7 +1,7 @@
 import { dbConnectionToken, envProviderToken, userProviderToken, ghostProviderToken } from "../common/constants";
 import { Sequelize } from "sequelize-typescript";
-import UserModel from "../modules/user/user.entity";
-import GhostModel from "../modules/ghost/ghost.entity";
+import UserModel from "../entity/user/user.entity";
+import GhostModel from "../entity/ghost/ghost.entity";
 
 export const testProviders = [
     {

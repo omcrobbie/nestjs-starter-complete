@@ -1,4 +1,4 @@
-import { envProviderToken } from "./constants";
+import { envProviderToken } from "../common/constants";
 import * as env from '../common/environment';
 
 export const Env = {...env};

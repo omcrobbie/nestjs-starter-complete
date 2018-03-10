@@ -1,14 +1,14 @@
 import * as express from 'express';
 import * as request from 'supertest';
 import { Test } from '@nestjs/testing';
-import { AuthService } from '../modules/auth/auth.service';
-import { GhostService } from '../modules/ghost/ghost.service';
-import { UserController } from '../modules/user/user.controller';
-import { AuthController } from '../modules/auth/auth.controller';
-import { GhostController } from '../modules/ghost/ghost.controller';
-import { AuthGuard } from '../modules/auth/auth.guard';
+import { AuthService } from '../services/auth.service';
+import { GhostService } from '../services/ghost.service';
+import { UserController } from '../controllers/user.controller';
+import { AuthController } from '../controllers/auth.controller';
+import { GhostController } from '../controllers/ghost.controller';
+import { AuthGuard } from '../guards/auth.guard';
 import { testProviders, authMiddleware } from './e2e.util';
-import { UserService } from '../modules/user/user.service';
+import { UserService } from '../services/user.service';
 import { INestApplication } from '@nestjs/common';
 
 let userService: UserService;

@@ -1,7 +1,7 @@
 import { createConnection } from 'typeorm';
 import { Sequelize } from 'sequelize-typescript';
-import { dbConnectionToken } from '../../common/constants';
-import * as env from '../../common/environment';
+import { dbConnectionToken } from '../common/constants';
+import * as env from '../common/environment';
 
 export const databaseProviders = [
   {

@@ -1,7 +1,7 @@
 import { Middleware, NestMiddleware, ExpressMiddleware } from "@nestjs/common";
-import { AuthService } from "../modules/auth/auth.service";
+import { AuthService } from "../services/auth.service";
 import { IRequest } from "../common/interfaces";
-import { UserService } from "../modules/user/user.service";
+import { UserService } from "../services/user.service";
 
 @Middleware()
 export class AuthMiddleware implements NestMiddleware {

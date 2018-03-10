@@ -1,10 +1,9 @@
 import { Guard } from "@nestjs/common";
 import { CanActivate, ExecutionContext } from "@nestjs/common/interfaces";
 import { Reflector } from "@nestjs/core";
-import { jwtSecret } from "../../common/constants";
 import * as jwt from 'jsonwebtoken';
 import { Observable } from "rxjs/Observable";
-import { AuthService } from "./auth.service";
+import { AuthService } from "../services/auth.service";
 
 
 @Guard()

@@ -1,5 +1,5 @@
-import { ghostProviderToken } from "../../common/constants";
-import GhostModel from "./ghost.entity";
+import { ghostProviderToken } from "../common/constants";
+import GhostModel from "../entity/ghost/ghost.entity";
 
 export const ghostProviders = [
     {

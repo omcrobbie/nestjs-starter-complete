@@ -1,9 +1,9 @@
 import { Controller, Post, Body, HttpStatus, ForbiddenException } from "@nestjs/common";
-import { GhostService } from "./ghost.service";
-import { Auth } from "../auth/auth.decorator";
-import { CreateGhostDto, ExchangeGhostDto } from "./ghost.dto";
-import { AuthService } from "../auth/auth.service";
-import { UserService } from "../user/user.service";
+import { GhostService } from "../services/ghost.service";
+import { Auth } from "../common/auth.decorator";
+import { CreateGhostDto, ExchangeGhostDto } from "../entity/ghost/ghost.dto";
+import { AuthService } from "../services/auth.service";
+import { UserService } from "../services/user.service";
 import { HttpException } from "@nestjs/core";
 
 @Auth(true)

@@ -1,9 +1,9 @@
 import { Component, Inject, HttpException, HttpStatus } from "@nestjs/common";
 import * as jwt from 'jsonwebtoken';
-import UserModel from "../user/user.entity";
-import { userProviderToken, envProviderToken } from "../../common/constants";
-import { createToken } from "../../common/functions";
-import { Env } from "../../common/env.provider";
+import UserModel from "../entity/user/user.entity";
+import { userProviderToken, envProviderToken } from "../common/constants";
+import { createToken } from "../common/functions";
+import { Env } from "../providers/env.provider";
 
 
 @Component()

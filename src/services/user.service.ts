@@ -1,6 +1,6 @@
 import { Component, Inject, HttpException, HttpStatus } from "@nestjs/common";
-import { userProviderToken } from "../../common/constants";
-import UserModel from "./user.entity";
+import { userProviderToken } from "../common/constants";
+import UserModel from "../entity/user/user.entity";
 
 @Component()
 export class UserService {

@@ -1,9 +1,9 @@
 import { Controller, Post, Body, HttpCode, HttpException, HttpStatus, Get, Req, ForbiddenException, NotFoundException } from "@nestjs/common";
-import { AuthService } from "./auth.service";
-import { Auth } from "./auth.decorator";
-import { LoginDto } from "./auth.dto";
-import { IRequest } from "../../common/interfaces";
-import { UserService } from "../user/user.service";
+import { AuthService } from "../services/auth.service";
+import { Auth } from "../common/auth.decorator";
+import { LoginDto } from "../entity/auth/auth.dto";
+import { IRequest } from "../common/interfaces";
+import { UserService } from "../services/user.service";
 
 @Auth(true)
 @Controller('auth')

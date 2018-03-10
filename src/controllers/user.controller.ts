@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, HttpException, HttpCode, HttpStatus, Put, ValidationPipe, Req, NotFoundException } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { CreateUserDto, LoginUserDto } from "./user.dto";
-import { IRequest } from "../../common/interfaces";
+import { UserService } from "../services/user.service";
+import { CreateUserDto, LoginUserDto } from "../entity/user/user.dto";
+import { IRequest } from "../common/interfaces";
 import * as jwt from 'jsonwebtoken';
 import { ApiImplicitBody } from "@nestjs/swagger";
 

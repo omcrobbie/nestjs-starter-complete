@@ -1,12 +1,11 @@
 import { Component, Inject } from "@nestjs/common";
-import { ghostProviderToken, userProviderToken, envProviderToken } from "../../common/constants";
-import GhostModel from "./ghost.entity";
-
+import { ghostProviderToken, userProviderToken, envProviderToken } from "../common/constants";
+import GhostModel from "../entity/ghost/ghost.entity";
 import * as jwt from 'jsonwebtoken';
-import { AuthService } from "../auth/auth.service";
-import { createToken, scrubTokenData } from "../../common/functions";
-import UserModel from "../user/user.entity";
-import { Env } from "../../common/env.provider";
+import { AuthService } from "../services/auth.service";
+import { createToken, scrubTokenData } from "../common/functions";
+import UserModel from "../entity/user/user.entity";
+import { Env } from "../providers/env.provider";
 
 @Component()
 export class GhostService {
