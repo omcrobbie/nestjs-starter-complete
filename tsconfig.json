@@ -7,6 +7,7 @@
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "noUnusedLocals": false,
     "target": "es6",
     "sourceMap": true,
     "allowJs": true,
